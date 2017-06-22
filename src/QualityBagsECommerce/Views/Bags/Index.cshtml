@@ -1,0 +1,128 @@
+@model IEnumerable<QualityBagsECommerce.Models.Bag>
+
+@*@model PaginatedList<QualityBagsECommerce.Models.Bag>*@
+
+@{
+    ViewData["Title"] = "Bags";
+}
+
+<h2>Bags</h2>
+
+<p>
+    <a asp-action="Create">Create New Bag</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default btn" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.Name)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
+            </th>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.Description)*@
+                Description
+            </th>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.Category)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Category</a>
+            </th>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.Supplier)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Supplier</a>
+            </th>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.Price)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Price</a>
+            </th>
+
+            @*<th>
+                @Html.DisplayNameFor(model => model.PathOfFile)
+            </th>*@
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+    var imgUrl = @Href("~" + item.PathOfFile);
+    var errImg = @Href("~/Images/Default.png");
+        <tr>
+
+            <td>
+                <img style="width: 250px; height: auto;" src="@imgUrl" alt="Bag Image" onerror="this.onerror = null; this.src = '@errImg'">
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+            @*<td>
+                @Html.DisplayFor(modelItem => item.PathOfFile)
+            </td>*@
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+
+
+        </tr>
+}
+    </tbody>
+</table>
+
+@*@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled btn">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled btn">
+    Next
+</a>*@

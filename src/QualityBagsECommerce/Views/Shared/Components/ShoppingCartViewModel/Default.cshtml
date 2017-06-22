@@ -1,0 +1,124 @@
+@model QualityBagsECommerce.Models.ShoppingCartViewModels.ShoppingCartViewModel
+
+@{
+    ViewData["Title"] = "Default";
+}
+
+<h2><span class="glyphicon glyphicon glyphicon-shopping-cart"></span>   Shopping Cart</h2>
+@if (@Model.CartItems.Count < 0)
+{
+
+        <div class="col-md-2">
+
+            <a class="btn btn-default" asp-action="EmptyCart" asp-controller="ShoppingCart">               
+                <span class="glyphicon glyphicon-trash"></span>
+                Clear Cart
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a class="btn btn-default" asp-action="Index" asp-controller="MemberBags">
+                <span class="glyphicon glyphicon-triangle-left"></span>
+                Continue Shopping
+            </a>
+        </div>
+
+        <div class="col-md-offset-2">
+            <a class="btn btn-default" asp-action="Create" asp-controller="Orders">
+                <span class="glyphicon glyphicon-step-forward"></span>
+                Proceed To Checkout 
+            </a>
+        </div>
+}
+
+<div class="container">
+    @if (@Model.CartItems.Count > 0)
+    {
+        <div class="panel-body">
+
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <h4 class="display-4">Bag</h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4 class="display-4">Quantity</h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4 class="display-4">Price</h4>
+                </div>
+            </div>
+
+            @foreach (var item in Model.CartItems)
+            {
+                <div class="row">
+
+                    <div class="col-sm-2"><a asp-controller="MemberBags" asp-action="Details" asp-route-id="@item.Bag.ID">@item.Bag.Name</a> </div>
+
+                    <div class="col-sm-2">@item.Quantity         <a asp-action="RemoveFromCart" asp-controller="ShoppingCart" asp-route-id="@item.Bag.ID"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
+
+                    <div class="col-sm-2">$@Math.Round(item.Bag.Price,2)</div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2">Items Total:</div>
+                <div class="col-sm-2">@Model.ItemTotal</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2">Grand Total:</div>
+                <div class="col-sm-2">$@Math.Round(Model.CartTotal,2)</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2">GST Total(15%):</div>
+                @{var gst = Math.Round(Model.CartTotal * (decimal)0.15, 2);}
+                <div class="col-sm-2">$@gst</div>
+            </div>
+        </div>
+        }
+        else
+        {
+        <div class="row"> Shopping Cart is Empty</div>
+    }
+
+</div>
+@if (@Model.CartItems.Count > 0)
+{
+
+    <div class="col-md-2">
+
+        <a class="btn btn-default" asp-action="EmptyCart" asp-controller="ShoppingCart">
+            <span class="glyphicon glyphicon-trash"></span>
+            Clear Cart
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a class="btn btn-default" asp-action="Index" asp-controller="MemberBags">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Continue Shopping
+        </a>
+    </div>
+
+    <div class="col-md-offset-2">
+        <a class="btn btn-default" asp-action="Create" asp-controller="Orders">
+            <span class="glyphicon glyphicon-step-forward"></span>
+            Proceed To Checkout
+        </a>
+    </div>
+    <hr />
+}
+else
+{
+    <div>
+        <a class="btn btn-default" asp-action="Index" asp-controller="MemberBags">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+            Continue Shopping
+        </a>
+    </div>
+    <hr />
+}
+
+

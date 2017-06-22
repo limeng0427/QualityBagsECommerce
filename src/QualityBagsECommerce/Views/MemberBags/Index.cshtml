@@ -1,0 +1,72 @@
+@model QualityBagsECommerce.Models.BagCategoryModels.BagCategory
+
+@*@model Tuple<IEnumerable<QualityBagsECommerce.Models.Bag>, IEnumerable<QualityBagsECommerce.Models.Category>>*@
+
+@{
+    ViewData["Title"] = "All Bags";
+}
+
+<h2>Quality Bags</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="well">
+                <h4>Categories</h4>
+                <p>
+                    <a asp-controller="MemberBags" asp-action="Index">All Bags</a><br/>
+                    @foreach (var item in Model.Category)
+                    {
+                        <a asp-controller="MemberBags" asp-action="Index" asp-route-CategoryID="@item.ID">@item.Name</a>
+                    }
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <div>
+                <h2>Bags Selected for You</h2>
+                <div class="row">
+                @foreach (var item in Model.Bag)
+                {
+                    var imgUrl = @Href("~" + item.PathOfFile);
+                    var errImg = @Href("~/Images/Default.png");
+                    var rawPrice = Math.Round(item.Price * (decimal)1.5, 2);
+                    var savePrice = Math.Round(item.Price * (decimal)0.5, 2);
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body" style="height: 350px">
+                                <div style="text-align: center;">
+                                    <p title=@Html.DisplayFor(modelItem => item.Name)>
+                                        <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Name)</a>
+                                    </p>
+                                    <img src="@imgUrl" width="120" onerror="this.onerror = null; this.src = '@errImg'">
+                                    <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                                    <p>
+                                        <span class="text-success" style="font-size: large">@Html.DisplayFor(modelItem => item.Price)</span>
+                                        <br>
+                                        GST included
+                                        <br>
+                                        <span class="text-danger"><del>$@rawPrice</del></span>
+                                        <br>
+                                        (save $@savePrice)
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <p><span class="text-success"> Bag in Stock</span></p>
+                                <a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@item.ID">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    Add To Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>

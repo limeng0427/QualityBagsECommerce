@@ -1,0 +1,195 @@
+﻿@model QualityBagsECommerce.Models.BagCategoryModels.BagCategory
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+              <div class="item active">
+            <img src="~/images/IndexPageImages/Bags-1.jpg" alt="Bags-1" style="width: 100%">
+        </div>
+
+        <div class="item">
+            <img src="~/images/IndexPageImages/Bags-2.jpg" alt="Bags-2" style="width: 100%">
+        </div>
+
+        <div class="item">
+            <img src="~/images/IndexPageImages/Bags-3.jpg" alt="Bags-3" style="width: 100%">
+        </div>
+
+        <div class="item">
+            <img src="~/images/IndexPageImages/Bags-4.jpg" alt="Bags-4" style="width: 100%">
+        </div>
+
+        <div class="item">
+            <img src="~/images/IndexPageImages/Bags-5.jpg" alt="Bags-5" style="width: 100%">
+        </div>
+
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<hr>
+
+<div class="col-md-12">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <p class="lead" style="text-align: center;">
+                                Quality Bag E-Commerce is Your Personal Bag Expert.
+                            </p>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>About Quality Bag E-Commerce</h2>
+                            <p class="lead">
+                                
+                            </p>
+                            <p>
+                                Quality Bag E-Commerce is built to be the New Zealand’s leading fashion label.
+                            </p><ul>
+                                <li>Inspired Designs</li>
+                                <li>Forefront Style</li>
+                                <li>Reasonable Price</li>
+                                <li>Sustained Customer Service</li>
+                            </ul>
+                            <a class="btn btn-info" asp-controller="MemberBags" asp-action="Index" >Find Your Bags</a>
+                            <p></p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="~/images/brand_logo.png">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <p class="lead" style="text-align: center; font-size:20px">
+                                Promotion of This Week
+                            </p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2></h2>
+                            <div class="row">
+                                @foreach (var item in Model.Bag)
+                                {
+                                    var imgUrl = @Href("~" + item.PathOfFile);
+                                    var errImg = @Href("~/Images/Default.png");
+                                    var rawPrice = Math.Round(item.Price * (decimal)1.5, 2);
+                                    var savePrice = Math.Round(item.Price * (decimal)0.5, 2);
+                                    <div class="col-md-3">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body" style="height: 350px">
+                                                <div style="text-align: center;">
+                                                    <p title=@Html.DisplayFor(modelItem => item.Name)>
+                                                        <a asp-controller="MemberBags" asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Name)</a>
+                                                    </p>
+                                                    <img src="@imgUrl" width="120" onerror="this.onerror = null; this.src = '@errImg'">
+                                                    <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                                                    <p>
+                                                        <span class="text-success" style="font-size: large">@Html.DisplayFor(modelItem => item.Price)</span>
+                                                        <br>
+                                                        GST included
+                                                        <br>
+                                                        <span class="text-danger"><del>$@rawPrice</del></span>
+                                                        <br>
+                                                        (save $@savePrice)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <p><span class="text-success"> Bag in Stock</span></p>
+                                                <a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@item.ID">
+                                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                                    Add To Cart
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Shop</h2>
+        <ul>
+            <li><a asp-controller="MemberBags" asp-action="Index">All Bags</a><br /></li>
+                @foreach (var item in Model.Category)
+                {
+                    <li><a asp-controller="MemberBags" asp-action="Index" asp-route-CategoryID="@item.ID">@item.Name</a></li>
+                }
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>How to</h2>
+        <ul>
+            <li><a asp-controller="MemberBags" asp-action="Index">Shop Online</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Payment Method</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Check Order Status</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Cancel Order</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Other Helps</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Find a Store</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Payment Problem</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Account</h2>
+        <ul>
+            <li><a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Account Overview</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Create Account</a></li>
+            <li><a asp-controller="MemberBags" asp-action="Index">Manage Account</a></li>
+            <li><a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Account Security</a></li>
+            <li><a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Change Password</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>About Us</h2>
+        <ul>
+            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Company Info</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Career</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+        </ul>
+    </div>
+</div>

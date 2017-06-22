@@ -1,0 +1,39 @@
+@model QualityBagsECommerce.Models.Bag
+
+@{
+    ViewData["Title"] = "Details";
+    var imgUrl = @Href("~" + Model.PathOfFile);
+    var errImg = @Href("~/Images/Default.png");
+    var rawPrice = Math.Round(Model.Price * (decimal)1.5, 2);
+    var savePrice = Math.Round(Model.Price * (decimal)0.5, 2);
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bag</h4>
+    <hr />
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@imgUrl" width="120" onerror="this.onerror = null; this.src = '@errImg'">
+            </div>
+            <div class="col-md-8">
+                <h2>@Model.Name</h2>
+                <p>
+                    <span class="text-success" style="font-size: xx-large">$@Math.Round(Model.Price,2)</span> GST Included<br>
+                    <span class="text-danger"><del>$@Math.Round(rawPrice,2)</del></span>
+                    (Save $@Math.Round(savePrice,2))
+                </p>
+                <a asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@Model.ID">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                    Add To Cart
+                </a>
+                @*<p>@Model.Category.Name</p>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

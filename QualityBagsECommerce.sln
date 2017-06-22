@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D7CCFB43-2448-4838-97B3-B716E0B6A1DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69E34D31-80F3-47B3-8DE5-6A36D2CC0B89}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "QualityBagsECommerce", "src\QualityBagsECommerce\QualityBagsECommerce.xproj", "{E5956E53-B40E-49FB-A752-4759622A8AB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5956E53-B40E-49FB-A752-4759622A8AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5956E53-B40E-49FB-A752-4759622A8AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5956E53-B40E-49FB-A752-4759622A8AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5956E53-B40E-49FB-A752-4759622A8AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E5956E53-B40E-49FB-A752-4759622A8AB8} = {D7CCFB43-2448-4838-97B3-B716E0B6A1DF}
+	EndGlobalSection
+EndGlobal

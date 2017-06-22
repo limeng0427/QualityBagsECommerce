@@ -1,0 +1,53 @@
+@model QualityBagsECommerce.Models.Order
+
+@{
+    ViewData["Title"] = "Purchased";
+}
+
+<h2><span class="glyphicon glyphicon-saved"></span>Thank you For Your Purchase!</h2>
+
+<div>
+    <h4>The following order will be dispatched as per the details below.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.User.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.User.Email)</dd>
+        <dt>@Html.DisplayNameFor(model => model.User.Address)</dt>
+        <dd>@Html.DisplayFor(model => model.User.Address)</dd>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Bags </th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                @foreach (var item in Model.OrderDetails)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bag.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bag.Price)
+                        </td>
+                    </tr>
+                }
+                <tr>
+                       <td></td>
+                    <td>
+                        <label>Total:</label>
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => Model.Total)
+                    </td>
+                </tr>
+            </table>
+        </dd>
+
+
+    </dl>
+</div>
